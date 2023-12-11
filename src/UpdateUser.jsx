@@ -28,22 +28,13 @@ export default function UpdateUser() {
         if (response.data.users[0]) {
           const userData = {
             name: response.data.users[0].name,
-            lastname:
-              response.data.users[0].lastname,
+            lastname: response.data.users[0].lastname,
             email: response.data.users[0].email,
-            city: response.data.users[0]
-              .userDetails[0].city,
-            age: response.data.users[0]
-              .userDetails[0].age,
-            hobbies:
-              response.data.users[0]
-                .userDetails[0].hobbies,
-            mobile:
-              response.data.users[0]
-                .userDetails[0].mobile,
-            address:
-              response.data.users[0]
-                .userDetails[0].address,
+            city: response.data.users[0].userDetails[0].city,
+            age: response.data.users[0].userDetails[0].age,
+            hobbies: response.data.users[0].userDetails[0].hobbies,
+            mobile: response.data.users[0].userDetails[0].mobile_no,
+            address: response.data.users[0].userDetails[0].address,
           };
           setUpdatedUser(userData);
         }
@@ -109,24 +100,15 @@ export default function UpdateUser() {
         </h1>
       </header>
       <section className="float-end me-4 mb-2">
-        <Link
-          to="/"
-          className="btn btn-secondary btn-sm"
-        >
+        <Link to="/" className="btn btn-secondary btn-sm">
           Back
         </Link>
       </section>
       <div className="container mt-3">
-        <form
-          className="needs-validation"
-          onSubmit={handleOnSubmit}
-        >
+        <form className="needs-validation" onSubmit={handleOnSubmit}>
           <fieldset className="container p-5 my-5 bg-dark text-white rounded-4">
             <div className="mb-3 mt-3">
-              <label
-                htmlFor="name"
-                className="form-label"
-              >
+              <label htmlFor="name" className="form-label">
                 Name:
               </label>
               <input
@@ -135,19 +117,12 @@ export default function UpdateUser() {
                 id="name"
                 placeholder="Enter Name"
                 name="name"
-                value={
-                  updatedUser
-                    ? updatedUser.name
-                    : "-"
-                }
+                value={updatedUser ? updatedUser.name : "-"}
                 onChange={handleOnChange}
               />
             </div>
             <div className="mb-3 mt-3">
-              <label
-                htmlFor="lastname"
-                className="form-label"
-              >
+              <label htmlFor="lastname" className="form-label">
                 Last Name:
               </label>
               <input
@@ -156,19 +131,12 @@ export default function UpdateUser() {
                 id="lastname"
                 placeholder="Enter Last Name"
                 name="lastname"
-                value={
-                  updatedUser
-                    ? updatedUser.lastname
-                    : "-"
-                }
+                value={updatedUser ? updatedUser.lastname : "-"}
                 onChange={handleOnChange}
               />
             </div>
             <div className="mb-3 mt-3">
-              <label
-                htmlFor="email"
-                className="form-label"
-              >
+              <label htmlFor="email" className="form-label">
                 Email:
               </label>
               <input
@@ -177,19 +145,12 @@ export default function UpdateUser() {
                 id="email"
                 placeholder="Enter email"
                 name="email"
-                value={
-                  updatedUser
-                    ? updatedUser.email
-                    : "-"
-                }
+                value={updatedUser ? updatedUser.email : "-"}
                 onChange={handleOnChange}
               />
             </div>
             <div className="mb-3 mt-3">
-              <label
-                htmlFor="address"
-                className="form-label"
-              >
+              <label htmlFor="address" className="form-label">
                 Address:
               </label>
               <textarea
@@ -198,19 +159,12 @@ export default function UpdateUser() {
                 id="address"
                 placeholder="Enter Address"
                 name="address"
-                value={
-                  updatedUser
-                    ? updatedUser.address
-                    : "-"
-                }
+                value={updatedUser ? updatedUser.address : "-"}
                 onChange={handleOnChange}
               ></textarea>
             </div>
             <div className="mb-3 mt-3">
-              <label
-                htmlFor="city"
-                className="form-label"
-              >
+              <label htmlFor="city" className="form-label">
                 City:
               </label>
               <input
@@ -219,19 +173,12 @@ export default function UpdateUser() {
                 id="city"
                 placeholder="Enter City"
                 name="city"
-                value={
-                  updatedUser
-                    ? updatedUser.city
-                    : "-"
-                }
+                value={updatedUser ? updatedUser.city : "-"}
                 onChange={handleOnChange}
               />
             </div>
             <div className="mb-3 mt-3">
-              <label
-                htmlFor="hobbies"
-                className="form-label"
-              >
+              <label htmlFor="hobbies" className="form-label">
                 Hobbies:
               </label>
               <input
@@ -240,19 +187,12 @@ export default function UpdateUser() {
                 id="hobbies"
                 placeholder="Enter Hobbies"
                 name="hobbies"
-                value={
-                  updatedUser
-                    ? updatedUser.hobbies
-                    : "-"
-                }
+                value={updatedUser ? updatedUser.hobbies : "-"}
                 onChange={handleOnChange}
               />
             </div>
             <div className="mb-3 mt-3">
-              <label
-                htmlFor="age"
-                className="form-label"
-              >
+              <label htmlFor="age" className="form-label">
                 Age:
               </label>
               <input
@@ -261,19 +201,12 @@ export default function UpdateUser() {
                 id="age"
                 placeholder="Enter Age"
                 name="age"
-                value={
-                  updatedUser
-                    ? updatedUser.age
-                    : "-"
-                }
+                value={updatedUser ? updatedUser.age : "-"}
                 onChange={handleOnChange}
               />
             </div>
             <div className="mb-3 mt-3">
-              <label
-                htmlFor="mobile-no"
-                className="form-label"
-              >
+              <label htmlFor="mobile-no" className="form-label">
                 Mobile No.:
               </label>
               <input
@@ -282,18 +215,11 @@ export default function UpdateUser() {
                 id="mobile-no"
                 placeholder="Enter Mobile No."
                 name="mobile"
-                value={
-                  updatedUser
-                    ? updatedUser.mobile_no
-                    : "-"
-                }
+                value={updatedUser ? updatedUser.mobile : "-"}
                 onChange={handleOnChange}
               />
             </div>
-            <button
-              type="submit"
-              className="btn btn-primary"
-            >
+            <button type="submit" className="btn btn-primary">
               Update
             </button>
           </fieldset>

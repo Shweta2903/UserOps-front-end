@@ -1,27 +1,32 @@
 import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function UserList() {
   const navigate = useNavigate();
-  
+
   const [searchTerm, setSearchTerm] = useState("");
   const [users, setUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const perPage = 6;
 
   useEffect(() => {
     getAllUsers();
-  }, []);
+  }, [currentPage]);
 
   const getAllUsers = () => {
     axios
-      .get("http://localhost:5000/api/users", {
+      .get(`http://localhost:5000/api/users?currentPage=${currentPage}&perPage=${perPage}`, {
         params: {
-          searchData: searchTerm
-        }
+          searchData: searchTerm,
+        },
       })
       .then(function (response) {
+        console.log(response.data.totalPages);
         if (response.data.users) {
           setUsers(response.data.users);
+          setTotalPages(response.data.totalPages);
         }
       })
       .catch(function (error) {
@@ -50,17 +55,25 @@ export default function UserList() {
   const handleSearchChange = (e) => {
     const newSearchTerm = e.target.value;
     setSearchTerm(newSearchTerm);
-    console.log("🚀 ~ file: UserList.jsx:49 ~ handleSearchChange ~ newSearchTerm:", newSearchTerm)
-  }
+    if (newSearchTerm.length === 0) {
+      getAllUsers();
+    }
+  };
 
   const handleSearchSubmit = () => {
     getAllUsers();
-  }
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
 
   return (
     <div>
       <header>
-        <h1 className="container-xxl p-5 my-5 bg-dark text-white text-center">UserList</h1>
+        <h1 className="container-xxl p-5 my-4 bg-dark text-white text-center">UserList</h1>
       </header>
       <i
         className="bi bi-search"
@@ -76,7 +89,9 @@ export default function UserList() {
         value={searchTerm}
         onChange={handleSearchChange}
       />
-      <button className="btn btn-secondary btn-sm" onClick={handleSearchSubmit}>Search</button>
+      <button className="btn btn-secondary btn-sm" onClick={handleSearchSubmit}>
+        Search
+      </button>
       <section className="float-end me-4 mb-2">
         <Link to="/create-user" className="btn btn-secondary btn-sm">
           Create User
@@ -101,7 +116,7 @@ export default function UserList() {
                 <Fragment key={i}>
                   {/* {console.log(ele)} */}
                   <tr>
-                    <td>{i + 1}</td>
+                    <td>{(currentPage - 1) * perPage + i + 1}</td>
                     <td>{ele.name}</td>
                     <td>{ele.email}</td>
                     <td>{ele.userDetails[0].address}</td>
@@ -131,6 +146,35 @@ export default function UserList() {
             )}
           </tbody>
         </table>
+        <section className="float-end">
+          <ul className="pagination justify-content-center">
+            <li
+              className={`page-item ${currentPage === 1 && "disabled"}`}
+              style={{ height: "100px", width: "130px" }}
+            >
+              <button
+                className="page-link"
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                Previous Page
+              </button>
+            </li>
+            <li className="page-item" style={{ height: "100px", width: "120px" }}>
+              <span className="page-link">{`Page ${currentPage} of ${totalPages}`}</span>
+            </li>
+            <li
+              className={`page-item ${currentPage === totalPages && "disabled"}`}
+              style={{ height: "100px", width: "180px" }}
+            >
+              <button
+                className="page-link"
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                Next Page
+              </button>
+            </li>
+          </ul>
+        </section>
       </section>
     </div>
   );

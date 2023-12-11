@@ -1,9 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import {
-  Link,
-  useNavigate,
-} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function CreateUser() {
   const navigate = useNavigate();
@@ -21,6 +18,12 @@ export default function CreateUser() {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.pwd || !formData.mobile) {
+    alert("Please fill in all required fields are (name, email, password).");
+    return;
+  }
+
     axios
       .post("http://localhost:5000/api/users", {
         name: formData.name,
@@ -34,14 +37,11 @@ export default function CreateUser() {
         address: formData.address,
       })
       .then(function (response) {
-        console.log(
-          "🚀 ~ file: CreateUser.jsx:37 ~ response:",
-          response
-        );
+        console.log("🚀 ~ file: CreateUser.jsx:37 ~ response:", response);
 
-        if (response.data.message) {
-          alert(response.data.message);
-          navigate("/");
+        if (response.data.message) {          
+            alert(response.data.message);
+            navigate("/");        
         }
       })
       .catch(function (error) {
@@ -64,24 +64,15 @@ export default function CreateUser() {
         </h1>
       </header>
       <section className="float-end me-4 mb-2">
-        <Link
-          to="/"
-          className="btn btn-secondary btn-sm"
-        >
+        <Link to="/" className="btn btn-secondary btn-sm">
           Back
         </Link>
       </section>
       <div className="container mt-3">
-        <form
-          onSubmit={handleOnSubmit}
-          className="needs-validation"
-        >
+        <form onSubmit={handleOnSubmit} className="needs-validation">
           <fieldset className="container p-5 my-5 bg-dark text-white rounded-4">
             <div className="mb-3 mt-3">
-              <label
-                htmlFor="name"
-                className="form-label"
-              >
+              <label htmlFor="name" className="form-label">
                 Name:
               </label>
               <input
@@ -95,10 +86,7 @@ export default function CreateUser() {
               />
             </div>
             <div className="mb-3 mt-3">
-              <label
-                htmlFor="lastname"
-                className="form-label"
-              >
+              <label htmlFor="lastname" className="form-label">
                 Last Name:
               </label>
               <input
@@ -112,10 +100,7 @@ export default function CreateUser() {
               />
             </div>
             <div className="mb-3 mt-3">
-              <label
-                htmlFor="email"
-                className="form-label"
-              >
+              <label htmlFor="email" className="form-label">
                 Email:
               </label>
               <input
@@ -127,12 +112,23 @@ export default function CreateUser() {
                 value={formData.email}
                 onChange={handleNameChange}
               />
-            </div>            
+            </div>
             <div className="mb-3 mt-3">
-              <label
-                htmlFor="address"
-                className="form-label"
-              >
+              <label htmlFor="pwd" className="form-label">
+                Password:
+              </label>
+              <input
+                type="password"
+                className="form-control"
+                id="pwd"
+                placeholder="Enter password"
+                name="pwd"
+                value={formData.pwd}
+                onChange={handleNameChange}
+              />
+            </div>
+            <div className="mb-3 mt-3">
+              <label htmlFor="address" className="form-label">
                 Address:
               </label>
               <textarea
@@ -146,10 +142,7 @@ export default function CreateUser() {
               ></textarea>
             </div>
             <div className="mb-3 mt-3">
-              <label
-                htmlFor="city"
-                className="form-label"
-              >
+              <label htmlFor="city" className="form-label">
                 City:
               </label>
               <input
@@ -163,10 +156,7 @@ export default function CreateUser() {
               />
             </div>
             <div className="mb-3 mt-3">
-              <label
-                htmlFor="hobbies"
-                className="form-label"
-              >
+              <label htmlFor="hobbies" className="form-label">
                 Hobbies:
               </label>
               <input
@@ -180,10 +170,7 @@ export default function CreateUser() {
               />
             </div>
             <div className="mb-3 mt-3">
-              <label
-                htmlFor="age"
-                className="form-label"
-              >
+              <label htmlFor="age" className="form-label">
                 Age:
               </label>
               <input
@@ -197,10 +184,7 @@ export default function CreateUser() {
               />
             </div>
             <div className="mb-3 mt-3">
-              <label
-                htmlFor="mobile-no"
-                className="form-label"
-              >
+              <label htmlFor="mobile-no" className="form-label">
                 Mobile No.:
               </label>
               <input
@@ -213,10 +197,7 @@ export default function CreateUser() {
                 value={formData.mobile}
               />
             </div>
-            <button
-              type="submit"
-              className="btn btn-primary"
-            >
+            <button type="submit" className="btn btn-primary">
               Submit
             </button>
           </fieldset>
