@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
+import UserSignUp from "./UserSignUp";
 import UserList from "./UserList";
 import CreateUser from "./CreateUser";
 import UpdateUser from "./UpdateUser";
-import UserSignUp from "./UserSignUp";
 
 const router = createBrowserRouter([
   {

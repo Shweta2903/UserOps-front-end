@@ -32,6 +32,7 @@ const UserSignUp = () => {
       .then(function (response) {
          alert(response.data.message);
         console.log("response", response);
+        localStorage.setItem("token",response.data.token)
         navigate("/");
       })
       .catch(function (error) {
